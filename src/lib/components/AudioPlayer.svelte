@@ -1315,9 +1315,9 @@
 					</div>
 				</div>
 			{:else}
-				{@const volumeIcon = getVolumeIcon()}
+				{@const VolumeIcon = getVolumeIcon()}
 				<div
-					class="flex items-center justify-between mt-4"
+					class="mt-4 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4"
 					in:fly={{
 						y: 10,
 						opacity: 0,
@@ -1331,7 +1331,7 @@
 						delay: 100
 					}}
 				>
-					<div class="flex items-center gap-4">
+					<div class="flex items-center gap-4 min-w-0">
 						{#if $player.currentTrack}
 							<div class="relative">
 								<img
@@ -1377,17 +1377,7 @@
 						{/if}
 					</div>
 
-					<div class="flex items-center gap-6">
-						<div class="hidden sm:flex mr-2">
-							{#key $player.currentTrack.id}
-								<Rating
-									id={$player.currentTrack.id}
-									rating={$player.currentTrack.userRating ?? 0}
-									compact={true}
-								/>
-							{/key}
-						</div>
-
+					<div class="flex items-center justify-center gap-6">
 						<button
 							class={`p-2 rounded-full hover:bg-primary/20 transition-colors ${
 								$player.shuffle ? 'text-primary' : ''
@@ -1436,6 +1426,18 @@
 								<Repeat size={20} class="opacity-50" />
 							{/if}
 						</button>
+					</div>
+
+					<div class="flex items-center justify-end gap-4">
+						<div class="hidden sm:flex">
+							{#key $player.currentTrack.id}
+								<Rating
+									id={$player.currentTrack.id}
+									rating={$player.currentTrack.userRating ?? 0}
+									compact={true}
+								/>
+							{/key}
+						</div>
 
 						<button
 							class="p-2 rounded-full hover:bg-primary/20 transition-colors flex items-center gap-2"
@@ -1453,7 +1455,7 @@
 								onmouseleave={handleVolumeLeave}
 								aria-label={volume === 0 ? 'Unmute' : 'Mute'}
 							>
-								<volumeIcon size={20}></volumeIcon>
+								<VolumeIcon size={20} />
 							</button>
 
 							<!-- svelte-ignore a11y_no_static_element_interactions -->
